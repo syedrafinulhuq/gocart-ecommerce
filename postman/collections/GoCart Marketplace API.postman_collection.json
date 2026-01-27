@@ -1,0 +1,373 @@
+{
+  "info": {
+    "_postman_id": "410d4014-4296-4ad9-b8ac-39c2246a2c3e",
+    "name": "GoCart Marketplace API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "id": "814d5274-9020-4c8b-a9ca-db833689ede8",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.collectionVariables.set('token', res.data.accessToken);"
+                ],
+                "type": "text/javascript",
+                "id": "a863ffe1-3391-4679-b71e-8b9fad46c5ad"
+              }
+            }
+          ],
+          "id": "3d2d0781-a1a2-444f-959e-8098350e1739",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "bd761736-8311-4f57-88ba-cc2e3fac374b"
+    },
+    {
+      "name": "Vendor",
+      "item": [
+        {
+          "name": "Apply Vendor",
+          "id": "057fafd4-32ba-4461-b3c6-aa5d819f5201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cool Shop\",\n  \"slug\": \"cool-shop\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vendor/apply",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendor",
+                "apply"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Vendor Profile",
+          "id": "6c94c366-01c6-45be-bad5-7b5606e2bb2c",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendor/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendor",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "6aa5206d-830a-4fcc-9196-c33d3e8fe1ca"
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "id": "f1d61525-aab4-4dd5-926d-35c1f2c7dc64",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Blue Shirt\",\n  \"description\": \"Premium cotton shirt\",\n  \"sku\": \"SHIRT-001\",\n  \"price\": 599,\n  \"stock\": 20\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vendor/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendor",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Products",
+          "id": "5e13802f-f2ef-4c4a-9336-97f0f747362c",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vendor/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vendor",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Public Products",
+          "id": "a1e1a954-ea48-405c-99f8-8ccac6ad8db1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "f36c930a-46cd-4a33-8422-7dafc35a0bdd"
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "id": "d268e7e1-b06e-4039-b2d4-6cb1c17fba5f",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    { \"productId\": \"PRODUCT_ID\", \"qty\": 1 }\n  ],\n  \"shippingAddressJson\": {\n    \"name\": \"John\",\n    \"address\": \"Dhaka\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Orders",
+          "id": "a816000d-59a8-4091-bdbf-b402809da32a",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orders/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "c0779a1a-3c4d-40ec-8f7e-842aba251ac8"
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "List Vendors",
+          "id": "1b50f5ec-4dc8-40ff-afef-1a968a81db0f",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/vendors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "vendors"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Vendor",
+          "id": "365a7a23-99d7-444f-8526-7bf23f2272ef",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/vendors/VENDOR_ID/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "vendors",
+                "VENDOR_ID",
+                "approve"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "d4ad2136-b2ef-43b8-a64d-8028ecf33295"
+    },
+    {
+      "name": "Health",
+      "id": "643ed5cd-b94d-495f-9904-370f7836c6e9",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "db1e8ead-8915-4de0-b1a6-db7a2a1bd2a8",
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "id": "9c1a5046-96f7-4b1d-89b3-7ca509dbb4a9",
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
