@@ -34,164 +34,111 @@ enum OrderStatus {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String @id @default(cuid())
+  email        String @unique
   passwordHash String
-  role         Role     @default(CUSTOMER)
+  role         Role   @default(CUSTOMER)
 
-  vendorId     String?
-  vendor       Vendor?  @relation(fields: [vendorId], references: [id])
+  vendorId String?
+  vendor   Vendor? @relation("UserVendor", fields: [vendorId], references: [id])
 
-  orders       Order[]  @relation("CustomerOrders")
-
+  orders        Order[]
   refreshTokens RefreshToken[]
-
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([role])
-  @@index([vendorId])
-}
-
-model Vendor {
-  id          String       @id @default(cuid())
-  name        String
-  slug        String       @unique
-  status      VendorStatus @default(PENDING)
-
-  ownerUserId String?
-  ownerUser   User?        @relation(fields: [ownerUserId], references: [id])
-
-  products    Product[]
-  orderItems  OrderItem[]
-
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  @@index([status])
-  @@index([ownerUserId])
-}
-
-model Category {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-
-  products  ProductCategory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Vendor    Vendor[]
+}
+
+model Vendor {
+  id     String       @id @default(cuid())
+  name   String
+  slug   String       @unique
+  status VendorStatus @default(PENDING)
+
+  ownerUserId String?
+  ownerUser   User?   @relation(fields: [ownerUserId], references: [id])
+
+  users User[] @relation("UserVendor")
+
+  products   Product[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
 }
 
 model Product {
-  id          String        @id @default(cuid())
-  vendorId    String
-  vendor      Vendor        @relation(fields: [vendorId], references: [id])
+  id       String @id @default(cuid())
+  vendorId String
+  vendor   Vendor @relation(fields: [vendorId], references: [id])
 
   title       String
   description String?
   sku         String?
-  currency    String        @default("BDT")
-  price       Decimal       @db.Decimal(12, 2)
-  stock       Int           @default(0)
 
-  status      ProductStatus @default(DRAFT)
+  price    Float
+  currency String @default("BDT")
+  stock    Int
 
-  images      ProductImage[]
-  categories  ProductCategory[]
-  orderItems  OrderItem[]
+  status ProductStatus @default(DRAFT)
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  images     ProductImage[]
+  orderItems OrderItem[]
 
-  @@index([vendorId])
-  @@index([status])
-  @@index([price])
+  createdAt DateTime @default(now())
 }
 
 model ProductImage {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  url       String
-  sortOrder Int      @default(0)
-
-  createdAt DateTime @default(now())
-
-  @@index([productId])
-}
-
-model ProductCategory {
-  productId  String
-  categoryId String
-
-  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@id([productId, categoryId])
-  @@index([categoryId])
+  url String
 }
 
 model Order {
-  id          String      @id @default(cuid())
-  customerId  String
-  customer    User        @relation("CustomerOrders", fields: [customerId], references: [id])
+  id         String @id @default(cuid())
+  customerId String
+  customer   User   @relation(fields: [customerId], references: [id])
 
   status      OrderStatus @default(PENDING)
-
   currency    String      @default("BDT")
-  totalAmount Decimal     @db.Decimal(12, 2)
+  totalAmount Float
 
-  notes       String?
   shippingAddressJson Json?
+  notes               String?
 
-  items       OrderItem[]
+  items OrderItem[]
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  @@index([customerId])
-  @@index([status])
-  @@index([createdAt])
+  createdAt DateTime @default(now())
 }
 
 model OrderItem {
-  id        String   @id @default(cuid())
-
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   productId String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 
-  vendorId  String
-  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+  vendorId String
+  vendor   Vendor @relation(fields: [vendorId], references: [id])
 
   qty       Int
-  unitPrice Decimal  @db.Decimal(12, 2)
-  currency  String   @default("BDT")
-
-  itemStatus String?
+  unitPrice Float
+  currency  String
 
   createdAt DateTime @default(now())
-
-  @@index([orderId])
-  @@index([vendorId])
-  @@index([productId])
 }
 
 model RefreshToken {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  tokenHash    String
-  revokedAt    DateTime?
-  expiresAt    DateTime
+  tokenHash String
+  revokedAt DateTime?
+  expiresAt DateTime
 
-  createdAt    DateTime @default(now())
-
-  @@index([userId])
-  @@index([expiresAt])
+  createdAt DateTime @default(now())
 }
