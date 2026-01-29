@@ -35,7 +35,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Boutique Marketplace API')
+    .setTitle('GoCart Marketplace API')
     .setDescription('Admin + Vendor + Customer API')
     .setVersion('1.0.0')
     .addBearerAuth()

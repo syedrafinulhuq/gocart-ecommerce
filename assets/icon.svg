@@ -1,0 +1,16 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GoCart icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316"/>
+      <stop offset="0.5" stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="52" height="52" rx="16" fill="#0B1220"/>
+  <path d="M16 18H22L24.2 32.5C24.4 34 25.7 35 27.2 35H40.5C41.8 35 42.9 34.1 43.2 32.8L45 24H24"
+        stroke="url(#g)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="28" cy="40" r="2.8" fill="url(#g)"/>
+  <circle cx="40" cy="40" r="2.8" fill="url(#g)"/>
+  <path d="M12 26H20" stroke="url(#g)" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M10 31H19" stroke="url(#g)" stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>
+</svg>
