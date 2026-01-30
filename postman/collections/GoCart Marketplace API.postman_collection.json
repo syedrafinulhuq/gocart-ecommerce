@@ -374,12 +374,12 @@
   ],
   "variable": [
     {
-      "id": "f423c484-4fa1-4fcf-9a8b-2ae07b0f80a7",
+      "id": "0cbf8cb7-a64f-421a-a00d-eadb75febaaa",
       "key": "baseUrl",
       "value": "http://localhost:4000/api"
     },
     {
-      "id": "b0e7e8fa-53a5-49ed-96cd-594b42b5066f",
+      "id": "57462ea9-afba-41e0-b002-f9dcf3a5ce6a",
       "key": "token",
       "value": ""
     }
