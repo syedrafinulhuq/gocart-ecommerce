@@ -42,12 +42,26 @@
             {
               "listen": "test",
               "script": {
+                "id": "a863ffe1-3391-4679-b71e-8b9fad46c5ad",
                 "exec": [
                   "const res = pm.response.json();",
                   "pm.collectionVariables.set('token', res.data.accessToken);"
                 ],
                 "type": "text/javascript",
-                "id": "a863ffe1-3391-4679-b71e-8b9fad46c5ad"
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "dde36ed4-1355-478e-be4b-6f8f098dafb4",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -62,7 +76,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"user@test.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n   email: \"admin@gocart.com\",\npassword: \"password123\"\n\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",

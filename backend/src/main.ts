@@ -8,18 +8,25 @@ import { ResponseTransformInterceptor } from './common/interceptors/response-tra
 import { validateEnvOrThrow } from './config/env.validation';
 
 async function bootstrap() {
+  // ✅ Validate env vars early
   validateEnvOrThrow(process.env);
 
   const app = await NestFactory.create(AppModule);
 
-  const corsOrigin = process.env.CORS_ORIGIN?.split(',').map(s => s.trim()) ?? ['http://localhost:3000'];
+  // ✅ CORS for HttpOnly cookies
+  const corsOrigin =
+    process.env.CORS_ORIGIN?.split(',').map(s => s.trim()) ??
+    ['http://localhost:3000'];
+
   app.enableCors({
     origin: corsOrigin,
-    credentials: true,
+    credentials: true, // 🔑 REQUIRED for cookies
   });
 
+  // ✅ Required for cookie-based auth
   app.use(cookieParser());
 
+  // ✅ Global validation
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -29,16 +36,22 @@ async function bootstrap() {
     }),
   );
 
+  // ✅ Global error + response handling
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalInterceptors(new ResponseTransformInterceptor());
 
+  // ✅ API prefix
   app.setGlobalPrefix('api');
 
+  // ✅ Swagger (adjusted for cookie auth)
   const swaggerConfig = new DocumentBuilder()
     .setTitle('GoCart Marketplace API')
-    .setDescription('Admin + Vendor + Customer API')
+    .setDescription(
+      'Admin + Vendor + Customer API\n\nAuthentication uses HttpOnly Cookies (access_token + refresh_token).',
+    )
     .setVersion('1.0.0')
-    .addBearerAuth()
+    // ⚠️ Keep BearerAuth ONLY for manual testing if needed
+    // .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
@@ -46,5 +59,8 @@ async function bootstrap() {
 
   const port = process.env.PORT ? Number(process.env.PORT) : 4000;
   await app.listen(port);
+
+  console.log(`\n🚀 GoCart API running on http://localhost:${port}/api\n`);
 }
+
 bootstrap();
