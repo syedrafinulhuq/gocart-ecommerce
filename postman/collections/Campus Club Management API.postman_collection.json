@@ -1,0 +1,425 @@
+{
+  "info": {
+    "_postman_id": "e5879993-ffd2-4194-9a1d-01fd508c724b",
+    "name": "Campus Club Management API",
+    "description": "Complete Postman collection for Admin, ClubInfo, Auth modules with JWT",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Get JWT)",
+          "id": "3cf49cc1-092e-4e49-b7bc-6b6013e0acc1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "ab46e6d3-78df-47b3-8a1d-61962ecc01a1"
+    },
+    {
+      "name": "Admins",
+      "item": [
+        {
+          "name": "Create Admin",
+          "id": "b4368fec-b316-4ddd-b5fc-68d739afe425",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Rafi\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"123456\",\n    \"role\": \"superadmin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/admins",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Admins",
+          "id": "e11ed83e-168d-4c58-89b1-5ac8f90cdade",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/admins",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Admin By ID",
+          "id": "f8261d76-cd7c-4d87-9573-31ce40b1d8a6",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/admins/{{admin_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admins",
+                "{{admin_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Admin (PATCH)",
+          "id": "8b42de7f-6ac1-4dde-afa0-103291676766",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Rafi\",\n    \"password\": \"newpass123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/admins/{{admin_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admins",
+                "{{admin_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Admin",
+          "id": "5e53e85d-33b6-4e4d-9a85-3b7968f921d2",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/admins/{{admin_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admins",
+                "{{admin_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "b7925c0d-86f5-4e9d-8d53-0824d03d0743"
+    },
+    {
+      "name": "Clubs",
+      "item": [
+        {
+          "name": "Create Club",
+          "id": "54302d55-4de8-42b3-936f-5d98c95fa7f6",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"admin_id\": \"{{admin_id}}\",\n    \"club_name\": \"AI Club\",\n    \"club_description\": \"Artificial Intelligence Club\",\n    \"active_status\": true,\n    \"members_count\": 50,\n    \"club_category\": \"Technology\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/clubs",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Clubs",
+          "id": "da13a182-62c8-4d2d-b7ab-b39bd4043635",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/clubs",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Club By ID",
+          "id": "5816c7ed-477a-4c1d-8ed2-99c72a0cd082",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/clubs/{{club_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs",
+                "{{club_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Club (PUT - full replace)",
+          "id": "ae691a8f-116a-4b96-8049-2eb16f6c2bbb",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"admin_id\": \"{{admin_id}}\",\n    \"club_name\": \"Updated Club\",\n    \"club_description\": \"Updated desc\",\n    \"active_status\": true,\n    \"members_count\": 70,\n    \"club_category\": \"Updated Category\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/clubs/{{club_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs",
+                "{{club_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Club (PATCH - partial)",
+          "id": "c2930c81-c174-4666-a745-a086354bc20d",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"club_description\": \"Partially updated desc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/clubs/{{club_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs",
+                "{{club_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Club",
+          "id": "58838506-d073-4d94-b55f-7ddca130ec90",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/clubs/{{club_id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clubs",
+                "{{club_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "id": "ed21ad7d-0067-4150-bd4e-2966ae20d32b",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "id": "1b67c3d1-6749-4697-89bd-72ea3ffdf5d5",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ],
+      "id": "c0e081f3-c830-4789-b9fe-ec844f92c54e"
+    }
+  ],
+  "variable": [
+    {
+      "id": "4765c9df-c60c-473f-a27c-45e5c4f19c45",
+      "key": "token",
+      "value": ""
+    },
+    {
+      "id": "97f9d07b-e714-464c-b2ba-65bfb1ed6b54",
+      "key": "admin_id",
+      "value": ""
+    },
+    {
+      "id": "a8db1577-f47e-4074-b9b5-4237977039eb",
+      "key": "club_id",
+      "value": ""
+    }
+  ]
+}

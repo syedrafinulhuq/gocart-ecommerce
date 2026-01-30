@@ -1,0 +1,75 @@
+{
+  "info": {
+    "_postman_id": "c1c99c7e-3337-4d12-bc8d-194e00bdbeaa",
+    "name": "NEST test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "admin",
+      "id": "3182f5b8-8fc8-4c1c-8867-28fd188d031d",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "create-club",
+      "id": "201c0d8c-1628-4863-9a15-f2a5b31fd3c1",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "update-club",
+      "id": "47619756-57b0-4b4d-8e0c-13432bb37ca4",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "delete-club",
+      "id": "98ca9287-06c5-42c1-9d8b-1d01a080d290",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "7db00566-9bbc-4856-a19a-a534248ed1f7",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"student@aiub.edu\",\r\n  \"password\": \"Strong1\",\r\n  \"gender\": \"other\",\r\n  \"phoneNumber\": \"01712345678\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/admin/create-user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "admin",
+            "create-user"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
